@@ -1,0 +1,9 @@
+.git*
+.editorconfig
+build/
+target/
+node_modules/
+*.log
+*.md
+.DS_Store
+tmp

@@ -1,0 +1,12 @@
+FROM alpine
+MAINTAINER Mark Kreyman <mark.kreyman@sling.com>
+
+WORKDIR /app
+COPY . /app
+
+RUN apk update && apk add nodejs
+RUN npm config set registry http://registry.npmjs.org/ && \
+    npm install webpack -g && \
+    npm install
+
+CMD webpack --watch --watch-poll
