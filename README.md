@@ -12,8 +12,8 @@ https://docs.docker.com/compose/overview/
 
 ### Launching a sample application in docker
 
-       $ git clone gitlab@....com:account/docker.git
-       $ cd docker
+       $ git clone git@gitlab.int.slingtv.com:account/frontend.git
+       $ cd frontend
        $ docker-compose build nginx    # optional
        $ docker-compose build webpack  # optional
        $ docker-compose up
