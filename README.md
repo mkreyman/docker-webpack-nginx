@@ -54,6 +54,11 @@ The `docker-compose up` command would do the following, based on instructions in
       $ docker-compose up
       # ...or in detached mode
       $ docker-compose up -d
+      
+Now open it in your browser
+
+http://localhost:8080
+
 
 #### List and delete images
 
