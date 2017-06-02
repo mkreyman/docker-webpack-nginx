@@ -5,7 +5,8 @@ WORKDIR /app
 COPY . /app
 
 RUN apk update && apk add nodejs
-RUN npm config set registry http://registry.npmjs.org/ && \
+RUN npm config set registry https://artifactory.global.dish.com/artifactory/api/npm/npm-remote && \
+    npm config set strict-ssl false && \
     npm install webpack -g && \
     npm install
 
