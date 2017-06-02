@@ -4,7 +4,7 @@ MAINTAINER Mark Kreyman <mark.kreyman@sling.com>
 WORKDIR /app
 COPY . /app
 
-RUN apk update && apk add nodejs
+RUN apk update && apk add nodejs nodejs-npm
 RUN npm config set registry https://artifactory.global.dish.com/artifactory/api/npm/npm-remote && \
     npm config set strict-ssl false && \
     npm install webpack -g && \
