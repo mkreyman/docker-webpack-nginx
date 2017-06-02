@@ -1,0 +1,14 @@
+FROM node:alpine
+MAINTAINER Mark Kreyman <mark.kreyman@sling.com>
+
+RUN apk update && apk add git
+RUN npm config set registry https://artifactory.global.dish.com/artifactory/api/npm/npm-remote && \
+    npm config set strict-ssl false && \
+    npm install -g osprey-mock-service
+
+WORKDIR /raml
+VOLUME /raml
+ADD api.raml /raml
+EXPOSE 4000
+
+CMD osprey-mock-service -f api.raml -p 4000

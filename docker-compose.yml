@@ -23,6 +23,16 @@ services:
       - ./webpack.config.js:/app/webpack.config.js
       - /app/node_modules
       - wwwroot:/app/public/build
+  mock:
+    build:
+      context: .
+      dockerfile: Dockerfile.mock
+    image: myaccount/mock
+    container_name: mock
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./api.raml:/raml/api.raml
 volumes:
   wwwroot:
     driver: local
