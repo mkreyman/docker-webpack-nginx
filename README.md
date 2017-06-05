@@ -14,8 +14,9 @@ https://docs.docker.com/compose/overview/
 
        $ git clone git@gitlab.int.slingtv.com:account/frontend.git
        $ cd frontend
-       $ docker-compose build nginx    # optional
-       $ docker-compose build webpack  # optional
+       $ docker rm $(docker ps -a -q)      # make sure there are no old containers
+       $ docker rmi $(docker images -a -q) # make sure there are no old images
+       $ docker-compose build              # optional
        $ docker-compose up
 
 The `docker-compose up` command would do the following, based on instructions in `docker-compose.yml`:
@@ -25,12 +26,31 @@ The `docker-compose up` command would do the following, based on instructions in
  - link all containers together.
 
 
+Once you're done with your work, stop your containers with `docker-compose stop`. Or just delete them all with `docker-compose down`. Containers are disposable and fast to rebuild. See some useful aliases at the end fo this readme for more cleanup commands.
+
 #### Default configuration
 
 `docker-compose up` brings up the following containers:
 
 - nginx
 - webpack
+- mock
+
+#### Using mock service to simulate API responses
+
+A mock service is running in the `mock` container that should be accessible to both, your application, as `mock`, and externally, on `localhost`, on port 4000. A sample `api.raml` file is provided. Once your containers are up, point the browser to `http://localhost:4000/starships/` in order to see it. Modify the `docker-compose.yml` file to point the mock service to the actual location of your raml file. You do that by mapping its local relative path to `/raml/api.raml` in the container, i.e.
+
+```
+...
+    volumes:
+      - ../api-contracts/my_account.raml:/raml/api.raml
+...
+```
+
+Then make sure to rebuild your containers again with `docker-compose build`.
+
+The mock service replaces external uri with `localhost:4000` in baseUri, so `https://api.slingtv.com/v1/account/subscription` would become accessble on `http://localhost:4000/v1/account/subscription`.
+
 
 #### Running with redis and postgres containers included
 
@@ -54,7 +74,7 @@ The `docker-compose up` command would do the following, based on instructions in
       $ docker-compose up
       # ...or in detached mode
       $ docker-compose up -d
-      
+
 Now open it in your browser
 
 http://localhost:8080
@@ -64,6 +84,7 @@ http://localhost:8080
 
       $ docker images
       $ docker rmi -f <image_id>
+      $ docker rmi $(docker images -a -q)
 
 #### List containers, both running and stopped, and restart them:
 
@@ -86,6 +107,7 @@ http://localhost:8080
         alias di='docker images'
         alias dlsv='docker volume ls -f dangling=true'
         alias drmi='docker rmi -f'
+        alias drmi-all='docker rmi $(docker images -a -q)'
         alias drm='docker rm -f'
         alias drm-all='docker rm $(docker ps -a -q)'
         alias drmn='docker network rm'
