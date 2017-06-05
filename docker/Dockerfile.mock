@@ -8,7 +8,7 @@ RUN npm config set registry https://artifactory.global.dish.com/artifactory/api/
 
 WORKDIR /raml
 VOLUME /raml
-ADD api.raml /raml
+ADD docker/api.raml /raml
 EXPOSE 4000
 
 CMD osprey-mock-service -f api.raml -p 4000

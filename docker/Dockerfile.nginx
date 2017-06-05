@@ -2,5 +2,5 @@ FROM nginx
 MAINTAINER Mark Kreyman <mark.kreyman@sling.com>
 
 RUN mkdir /wwwroot
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY docker/nginx.conf /etc/nginx/nginx.conf
 RUN service nginx start

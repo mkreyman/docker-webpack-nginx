@@ -3,7 +3,7 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: Dockerfile.nginx
+      dockerfile: docker/Dockerfile.nginx
     image: myaccount/nginx
     container_name: nginx
     ports:
@@ -13,7 +13,7 @@ services:
   webpack:
     build:
       context: .
-      dockerfile: Dockerfile.webpack
+      dockerfile: docker/Dockerfile.webpack
     image: myaccount/webpack
     container_name: webpack
     ports:
@@ -23,16 +23,18 @@ services:
       - ./webpack.config.js:/app/webpack.config.js
       - /app/node_modules
       - wwwroot:/app/public/build
+    links:
+      - mock:mock
   mock:
     build:
       context: .
-      dockerfile: Dockerfile.mock
+      dockerfile: docker/Dockerfile.mock
     image: myaccount/mock
     container_name: mock
     ports:
       - "4000:4000"
     volumes:
-      - ./api.raml:/raml/api.raml
+      - ./docker/api.raml:/raml/api.raml
 volumes:
   wwwroot:
     driver: local

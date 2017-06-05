@@ -3,7 +3,7 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: Dockerfile.nginx
+      dockerfile: docker/Dockerfile.nginx
     image: myaccount/nginx
     container_name: nginx
     ports:
@@ -13,7 +13,7 @@ services:
   webpack:
     build:
       context: .
-      dockerfile: Dockerfile.webpack
+      dockerfile: docker/Dockerfile.webpack
     image: myaccount/webpack
     container_name: webpack
     ports:
@@ -24,6 +24,7 @@ services:
       - /app/node_modules
       - wwwroot:/app/public/build
     links:
+      - mock:mock
       - postgres:postgres
       - redis:redis
   postgres:
