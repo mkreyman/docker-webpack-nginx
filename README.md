@@ -25,6 +25,7 @@ The `docker-compose up` command would do the following, based on instructions in
  - spin up containers based on the images,
  - link all containers together.
 
+Your application is now available at `http://localhost:8080`
 
 Once you're done with your work, stop your containers with `docker-compose stop`. Or just delete them all with `docker-compose down`. Containers are disposable and fast to rebuild. See some useful aliases at the end fo this readme for more cleanup commands.
 
