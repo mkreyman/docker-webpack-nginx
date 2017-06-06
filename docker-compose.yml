@@ -34,7 +34,8 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - ./docker/api.raml:/raml/api.raml
+      # - ./docker/api.raml:/raml/api.raml
+      - ../api-contracts:/raml
 volumes:
   wwwroot:
     driver: local
